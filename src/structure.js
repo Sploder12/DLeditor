@@ -1,6 +1,6 @@
 
 export const BasicConnection = "->"
-export const BreakingConnection = "\->"
+export const BreakingConnection = "\\->"
 
 export const NodeTypes = [
     "starting",
