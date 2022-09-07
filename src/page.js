@@ -34,32 +34,34 @@ function fileOpen() {
     let input = document.createElement("input");
     input.type = "file";
     input.accept= ".dl";
-    input.click();
+    
+    input.onclick = function() {
+        let files = Array.from(input.files);
+        if (files.length >= 1) {
+            let file = files[0];
 
-    let files = Array.from(input.files);
-    if (files.length >= 1) {
-        let file = files[0];
+            fileName = file.name;
 
-        fileName = file.name;
-
-        // load .dl
-        const reader = new FileReader();
-       
-        reader.onload = fileLoad;
+            // load .dl
+            const reader = new FileReader();
         
-        reader.onerror = function() {
-            alert("Could not read file " + file.name);
-            console.log(reader.error);
-        };
+            reader.onload = fileLoad;
+            
+            reader.onerror = function() {
+                alert("Could not read file " + file.name);
+                console.log(reader.error);
+            };
 
-        reader.onload = function() {
-            game = parser.parse(reader.result);
+            reader.onload = function() {
+                game = parser.parse(reader.result);
+            }
+
+            reader.readAsText(file);
+        } else {
+            alert("No file.");
         }
-
-        reader.readAsText(file);
-    } else {
-        alert("No file.");
     }
+    input.click();
 }
 
 function fileSave() {
