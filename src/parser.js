@@ -24,7 +24,7 @@ const c_funcs = {
 
 export function parse(content) {
     
-    content = content.replace(/[\n\r]/g, '\n'); // thanks again JS
+    content = content.replace(/\r|\n\r/g, '\n'); // thanks again JS
     const sections = content.split("\n---\n");
     if (sections.length != 2) {
         error("Invalid .dl format.");
@@ -37,7 +37,7 @@ export function parse(content) {
     let node_map = {};
 
     const node_data = nodes.split('\n');
-    for (const node in nodes_data) {
+    for (const node of node_data) {
         const data = node.match(/\s*\|\s*/);
 
         if (data === null || data.length != 4) {
@@ -58,7 +58,7 @@ export function parse(content) {
         node_map[id] = new struct.Node(name, desc, type, 0.0, 0.0);
     }
     
-    for (connection in connections.strip('\n').split('\n')) {
+    for (connection of connections.strip('\n').split('\n')) {
         const data = connection.match(/^(\d*)\s*([^\s]*)\s*(\d*)\s*$/);
 
         if (data === null || data.length != 3) {
