@@ -9,8 +9,8 @@ let selectedNode = null;
 
 const padding = 10;
 
-let view_x = 0.0;
-let view_y = 0.0;
+let view_x = -400.0;
+let view_y = -320.0;
 let zoom = 1.0;
 
 const canvas = document.getElementById("editor");
@@ -23,8 +23,9 @@ function commitChange() {
     context.textAlign = "center";    
 
     for (let node of game.nodes) {
-        const width = context.measureText(node.title).width;
-        const height = context.measureText(node.title).height;
+        const metrics = context.measureText(node.title);
+        const width = metrics.width;
+        const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
         let x = node.x - (width / 2) - padding;
         let y = node.y - (height / 2) - padding;
@@ -68,6 +69,7 @@ function mouseMove(e) {
     } else if (panning) {
         view_x += (e.clientX - prevX);
         view_y += (e.clientY - prevY);
+        commitChange();
     }
 
     prevX = e.clientX;
