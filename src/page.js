@@ -6,9 +6,26 @@ let fileName = "untitled.dl";
 
 let game = new struct.Game();
 
+const padding = 10;
+
 // redraws the canvas and updates updated
 function commitChange() {
+    const canvas = document.getElementById("editor");
+    let context = canvas.getContext("2d");
+
+    context.fillStyle = "#808080";
+    context.font = "30px Arial";
+    context.textAlign = "center";
+
     
+
+    for (node of game.nodes) {
+        const width = context.measureText(node.title).width;
+        const height = context.measureText(node.title).height;
+
+        context.fillRect(node.x - (width / 2) - padding, node.y - (height/2) - padding, width + padding * 2, height + padding * 2);
+        context.fillText(node.x, node.y);
+    }
 }
 
 function fileNew() {
@@ -52,6 +69,8 @@ function fileOpen() {
 
             reader.onload = function() {
                 game = parser.parse(reader.result);
+                updated = false;
+                commitChange();
             }
 
             reader.readAsText(file);

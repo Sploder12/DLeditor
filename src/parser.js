@@ -60,7 +60,7 @@ export function parse(content) {
     
     let connection_data = connections.split('\n')
     for (let connection of connection_data) {
-        
+        if (connection === "") continue;
 
         let re = /^(\d*)\s*([^\s]*)\s*(\d*)\s*$/;
         let data = re.exec(connection);
