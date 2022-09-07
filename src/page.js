@@ -22,6 +22,10 @@ function fileNew() {
 
 }
 
+function fileLoad() {
+    game = parser.parse(file.result);
+}
+
 function fileOpen() {
    
     if (updated) {
@@ -40,11 +44,19 @@ function fileOpen() {
     if (files.length >= 1) {
         let file = files[0];
 
-       
         fileName = file.name;
 
         // load .dl
-        game = parser.parse(file);
+        const reader = new FileReader();
+       
+        reader.onload = fileLoad;
+        
+        reader.onerror = function() {
+            alert("Could not read file " + file.name);
+            console.log(reader.error);
+        };
+
+        reader.readAsText(file);
     } 
 }
 
