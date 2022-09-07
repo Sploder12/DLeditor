@@ -8,17 +8,17 @@ function error(reason) {
 
 const c_funcs = {
     "->": function (node, node_b) { node.add_connection(node_b, struct.BasicConnection); },
-    "\->": function (node, node_b) { node.add_connection(node_b, struct.BreakingConnection); },
+    "\\->": function (node, node_b) { node.add_connection(node_b, struct.BreakingConnection); },
     "<->": function (node, node_b) { node.add_connection(node_b, struct.BasicConnection);
                                      node_b.add_connection(node, struct.BasicConnection);},
 
-    "<-\->": function (node, node_b) { node.add_connection(node_b, struct.BreakingConnection);
+    "<-\\->": function (node, node_b) { node.add_connection(node_b, struct.BreakingConnection);
                                        node_b.add_connection(node, struct.BasicConnection); },
 
     "<-/->": function (node, node_b) { node.add_connection(node_b, struct.BasicConnection);
                                        node_b.add_connection(node, struct.BreakingConnection); },
     
-    "<-/\->": function (node, node_b) { node.add_connection(node_b, struct.BreakingConnection);
+    "<-/\\->": function (node, node_b) { node.add_connection(node_b, struct.BreakingConnection);
                                         node_b.add_connection(node, struct.BreakingConnection); },
 }
 
@@ -70,8 +70,8 @@ export function parse(content) {
             return new struct.Game();
         }
 
-        if (!(Object.hasOwn(c_funcs, data[1]))) {
-            error("Invalid connection type " + data[1]);
+        if (!(data[2] in c_funcs)) {
+            error("Invalid connection type " + data[2]);
             return new struct.Game();
         }
 
