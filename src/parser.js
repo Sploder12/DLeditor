@@ -24,7 +24,7 @@ const c_funcs = {
 
 export function parse(content) {
     
-
+    content = content.replace('\r', '');
     const sections = content.split("\n---\n");
     if (sections.length != 2) {
         error("Invalid .dl format.");
