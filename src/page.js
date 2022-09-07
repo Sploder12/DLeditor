@@ -52,6 +52,6 @@ function fileSave() {
     
 }
 
-window.fileNew = fileNew;
-window.fileOpen = fileOpen;
-window.fileSave = fileSave;
+document.querySelector("#FileNew").addEventListener("click", fileNew);
+document.querySelector("#FileOpen").addEventListener("click", fileOpen);
+document.querySelector("#FileSave").addEventListener("click", fileSave);
