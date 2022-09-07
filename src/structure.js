@@ -50,7 +50,7 @@ export class Node {
 
     add_connection(to, type) {
         if (type === BasicConnection || type === BreakingConnection) {
-            this.connections.push(new Connection(this, to, type));
+            this.connections.push(new Connection(to, this, type));
         }
     }
 }
