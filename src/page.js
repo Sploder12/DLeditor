@@ -1,0 +1,53 @@
+import * as struct from "./structure.js"
+import * as parser from "./parser.js"
+
+let updated = true;
+let fileName = "untitled.dl";
+
+let game = new struct.Game();
+
+// redraws the canvas and updates updated
+function commitChange() {
+    
+}
+
+function fileNew() {
+    if (updated) {
+        if (!confirm("You have unsaved changes.\nContinue?")) {
+            return;
+        } 
+        updated = false;
+    }
+
+
+}
+
+function fileOpen() {
+   
+    if (updated) {
+        if (!confirm("You have unsaved changes.\nContinue?")) {
+            return;
+        } 
+        updated = false;
+    }
+
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept="text/*,.dl";
+    input.click();
+
+    let files = Array.from(input.files);
+    if (files.length >= 1) {
+        let file = files[0];
+
+       
+        fileName = file.name;
+
+        // load .dl
+        game = parser.parse(file);
+    } 
+}
+
+function fileSave() {
+    
+}

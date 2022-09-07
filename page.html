@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>.dl Editor</title>
+        <link rel="stylesheet" href="page.css">
+        <script type="module" src="src/page.js"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn">File</button>
+                <div class="dropdown-content">
+                    <button id="FileNew" onclick="fileNew()">New</button>
+                    <button id="FileOpen" onclick="fileOpen()">Open</button>
+                    <button id="FileSave" onclick="fileSave()">Save</button>
+                </div>
+             </div>
+        </div>
+        <div class="toolbar">
+
+        </div>
+        <canvas id="editor" width="640" height="480" style="border:1px solid #000000; float:center;">
+
+        </canvas>
+    </body>
+</html>
