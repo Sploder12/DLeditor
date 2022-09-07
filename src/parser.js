@@ -38,7 +38,7 @@ export function parse(content) {
 
     const node_data = nodes.split('\n');
     for (const node of node_data) {
-        const data = node.match(/\s*\|\s*/);
+        const data = node.split(/\s*\|\s*/);
 
         if (data === null || data.length != 4) {
             error("Invalid node format.");
@@ -50,7 +50,7 @@ export function parse(content) {
         const name = data[2];
         const desc = data[3];
 
-        if (!(type in struct.NodeTypes)) {
+        if (!struct.NodeTypes.includes(type)) {
             error("Invalid node type " + type);
             return new struct.Game();
         }
@@ -59,7 +59,12 @@ export function parse(content) {
     }
     
     for (connection of connections.strip('\n').split('\n')) {
-        const data = connection.match(/^(\d*)\s*([^\s]*)\s*(\d*)\s*$/);
+        var data = [];
+
+        let re = /^(\d*)\s*([^\s]*)\s*(\d*)\s*$/;
+        while (match = re.exec(connection)) {
+            data.push(match);
+        }
 
         if (data === null || data.length != 3) {
             error("Invalid connection format.");
