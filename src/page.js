@@ -74,6 +74,9 @@ function mouseDown(e) {
 
             if (node.inside(prevX + view_x, prevY + view_y, width, height, padding)) {
                 selectedNode = node;
+                selectedNode.x = prevX + view_x;
+                selectedNode.y = prevY + view_y;
+                commitChange();
                 break;
             }
         }
@@ -92,6 +95,7 @@ function mouseMove(e) {
     if (dragging && selectedNode !== null) {
         selectedNode.x = realX + view_x;
         selectedNode.y = realY + view_y;
+        commitChange();
     } else if (panning) {
         view_x -= (realX - prevX);
         view_y -= (realY - prevY);
