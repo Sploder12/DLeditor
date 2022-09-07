@@ -58,8 +58,8 @@ function mouseUp(e) {
 let prevX = 0.0;
 let prevY = 0.0;
 function mouseDown(e) {
-    prevX = e.offsetX;
-    prevY = e.offsetY;
+    prevX = e.offsetX * 0.80425;
+    prevY = e.offsetY * 0.80425;
 
     if (e.button == 0) {
         dragging = true;
@@ -86,19 +86,17 @@ function mouseDown(e) {
 
 
 function mouseMove(e) {
-    const c_rect = canvas.getBoundingClientRect();
-    const w_rect = window.getBoundingClientRect();
 
     if (dragging) {
 
     } else if (panning) {
-        view_x -= (e.offsetX - prevX) * c_rect.width / w_rect.width;
-        view_y -= (e.offsetY - prevY) * c_rect.height / w_rect.height;
+        view_x -= (e.offsetX * 0.80425 - prevX);
+        view_y -= (e.offsetY * 0.80425  - prevY);
         commitChange();
     }
 
-    prevX = e.offsetX;
-    prevY = e.offsetY;
+    prevX = e.offsetX * 0.80425;
+    prevY = e.offsetY * 0.80425;
 }
 
 function mouseLeave(e) {
