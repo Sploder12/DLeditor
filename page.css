@@ -1,17 +1,20 @@
 * {
     box-sizing: border-box;
+    margin: 0;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    background-color: gray;
 }
   
 canvas {
-    margin-top: 16px;
+    flex: 5;
     margin-left: auto;
     margin-right: auto;
     display: block;
     width: 800px;
+    background-color: white;
 }
 
 .navbar {
@@ -64,4 +67,22 @@ canvas {
   
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.container {
+    display: flex;
+}
+
+.nodeEditor {
+    color: black;
+    width: auto;
+    background-color: darkgrey;
+    flex: 2;
+}
+
+.toolbar {
+    color: black;
+    width: auto;
+    background-color: darkgrey;
+    flex: 2;
 }
