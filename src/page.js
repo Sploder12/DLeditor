@@ -58,8 +58,8 @@ function mouseUp(e) {
 let prevX = 0.0;
 let prevY = 0.0;
 function mouseDown(e) {
-    prevX = e.offsetX * 0.80425;
-    prevY = e.offsetY * 0.80425;
+    prevX = e.offsetX * window.devicePixelRatio;
+    prevY = e.offsetY * window.devicePixelRatio;
 
     if (e.button == 0) {
         dragging = true;
@@ -90,13 +90,13 @@ function mouseMove(e) {
     if (dragging) {
 
     } else if (panning) {
-        view_x -= (e.offsetX * 0.80425 - prevX);
-        view_y -= (e.offsetY * 0.80425  - prevY);
+        view_x -= (e.offsetX * window.devicePixelRatio - prevX);
+        view_y -= (e.offsetY * window.devicePixelRatio  - prevY);
         commitChange();
     }
 
-    prevX = e.offsetX * 0.80425;
-    prevY = e.offsetY * 0.80425;
+    prevX = e.offsetX * window.devicePixelRatio;
+    prevY = e.offsetY * window.devicePixelRatio;
 }
 
 function mouseLeave(e) {
