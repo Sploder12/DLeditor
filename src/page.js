@@ -31,10 +31,15 @@ function commitChange() {
         context.fillStyle = "#000000";
         for (let connection of node.connections) {
             if (connection.type === struct.BreakingConnection) {
-                context.setLineDash([5, 5]);
+                context.setLineDash([5, 10]);
             } else {
                 context.setLineDash([]);
             }
+
+            let grd = context.createLinearGradient(node.x - view_x, node.y - view_y + padding, connection.to.x - view_x, connection.to.y - view_y - padding);
+            grd.addColorStop(0, "#000000");
+            grd.addColorStop(1, "#ffffff");
+            context.fillStyle = grd;
 
             context.beginPath();
             context.moveTo(node.x - view_x, node.y - view_y + padding);
