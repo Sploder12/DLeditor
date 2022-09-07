@@ -29,6 +29,12 @@ function commitChange() {
     for (let node of game.nodes) {
         context.fillStyle = "#000000";
         for (let connection of node.connections) {
+            if (connection.type === struct.BreakingConnection) {
+                context.setLineDash([5, 5]);
+            } else {
+                context.setLineDash([]);
+            }
+
             context.beginPath();
             context.moveTo(node.x - view_x, node.y - view_y);
             context.lineTo(connection.to.x - view_x, connection.to.y - view_y);
@@ -74,6 +80,8 @@ function mouseDown(e) {
     prevY = e.offsetY / window.devicePixelRatio;
 
     if (e.button == 0) {
+        selectedNode = null;
+
         dragging = true;
         panning = false;
 
