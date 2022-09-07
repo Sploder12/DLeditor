@@ -25,6 +25,18 @@ function commitChange() {
     context.fillStyle = "#ffffff";
     context.fillRect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
 
+    // draw connections
+    for (let node of game.nodes) {
+        context.fillStyle = "#000000";
+        for (let connection of node.connections) {
+            context.beginPath();
+            context.moveTo(node.x - view_x, node.y - view_y);
+            context.lineTo(connect.to.x - view_x, connect.to.y - view_y);
+            context.stroke();
+        }
+    }
+
+    // draw boxes
     for (let node of game.nodes) {
         const metrics = context.measureText(node.id);
         let width = metrics.width;
