@@ -35,6 +35,8 @@ export class Node {
     }
 
     inside(x, y, width, height, padding) {
+        width = width + padding * 2;
+        height = height + padding * 2;
         const left = this.x - width/2 - padding;
         const top = this.y - height/2 - padding;
 
