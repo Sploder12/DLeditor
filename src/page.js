@@ -44,8 +44,6 @@ function fileOpen() {
 
             // load .dl
             const reader = new FileReader();
-        
-            reader.onload = fileLoad;
             
             reader.onerror = function() {
                 alert("Could not read file " + file.name);
@@ -57,8 +55,6 @@ function fileOpen() {
             }
 
             reader.readAsText(file);
-        } else {
-            alert("No file.");
         }
     };
     input.click();
