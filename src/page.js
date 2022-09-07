@@ -8,23 +8,29 @@ let game = new struct.Game();
 
 const padding = 10;
 
+let view_x = -400.0;
+let view_y = -320.0;
+let zoom = 1.0;
+
 // redraws the canvas and updates updated
 function commitChange() {
     const canvas = document.getElementById("editor");
     let context = canvas.getContext("2d");
 
-    context.fillStyle = "#808080";
-    context.font = "30px Arial";
-    context.textAlign = "center";
-
     
+    context.font = "30px Arial";
+    context.textAlign = "center";    
 
-    for (node of game.nodes) {
+    for (let node of game.nodes) {
         const width = context.measureText(node.title).width;
         const height = context.measureText(node.title).height;
 
-        context.fillRect(node.x - (width / 2) - padding, node.y - (height/2) - padding, width + padding * 2, height + padding * 2);
-        context.fillText(node.x, node.y);
+        let x = node.x - (width / 2) - padding;
+        let y = node.y - (height / 2) - padding;
+        context.fillStyle = "#808080";
+        context.fillRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
+        context.fillStyle = "#000000";
+        context.fillText(node.title, node.x, node.y);
     }
 }
 
