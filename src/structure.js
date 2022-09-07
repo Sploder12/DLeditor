@@ -34,14 +34,17 @@ export class Node {
         this.y = y;
     }
 
-    inside(x, y, width, height, padding) {
+    inside(x, y, width, height, padding, context) {
         width = width + padding * 2;
         height = height + padding * 2;
-        const left = this.x - width/2 - padding;
+        const left = this.x - width/2;
         const top = this.y - height/2 - padding;
 
+        context.fillStyle = "#f00000";
+        context.strokeRect(left, top, width, height);
+
         if (x >= left && y >= top) {
-            if (x <= left + width + padding * 2 && y <= top + width + padding * 2) {
+            if (x <= left + width && y <= top + height) {
                 return true;
             }
         }
