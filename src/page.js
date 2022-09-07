@@ -82,8 +82,9 @@ function mouseUp(e) {
 let prevX = 0.0;
 let prevY = 0.0;
 function mouseDown(e) {
-    prevX = e.offsetX / window.devicePixelRatio;
-    prevY = e.offsetY / window.devicePixelRatio;
+    const rect = canvas.getBoundingClientRect();
+    prevX = e.offsetX / (rect.width / 640.0);
+    prevY = e.offsetY / (rect.height / 480.0);
 
     if (e.button == 0) {
         selectedNode = null;
@@ -115,8 +116,9 @@ function mouseDown(e) {
 
 
 function mouseMove(e) {
-    const realX = e.offsetX / window.devicePixelRatio;
-    const realY = e.offsetY / window.devicePixelRatio
+    const rect = canvas.getBoundingClientRect();
+    const realX = e.offsetX / (rect.width / 640.0);
+    const realY = e.offsetY / (rect.height / 480.0);
 
     if (dragging && selectedNode !== null) {
         selectedNode.x = realX + view_x;
