@@ -86,17 +86,20 @@ function mouseDown(e) {
 
 
 function mouseMove(e) {
+    const realX = e.offsetX / window.devicePixelRatio;
+    const realY = e.offsetY / window.devicePixelRatio
 
-    if (dragging) {
-
+    if (dragging && selectedNode !== null) {
+        selectedNode.x = realX + view_x;
+        selectedNode.y = realY + view_y;
     } else if (panning) {
-        view_x -= (e.offsetX / window.devicePixelRatio - prevX);
-        view_y -= (e.offsetY / window.devicePixelRatio  - prevY);
+        view_x -= (realX - prevX);
+        view_y -= (realY - prevY);
         commitChange();
     }
 
-    prevX = e.offsetX / window.devicePixelRatio;
-    prevY = e.offsetY / window.devicePixelRatio;
+    prevX = realX;
+    prevY = realY;
 }
 
 function mouseLeave(e) {
