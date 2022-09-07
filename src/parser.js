@@ -58,16 +58,14 @@ export function parse(content) {
         node_map[id] = new struct.Node(name, desc, type, 0.0, 0.0);
     }
     
-    for (let connection of connections.split('\n')) {
-        let data = [];
-        let match;
+    let connection_data = connections.split('\n')
+    for (let connection of connection_data) {
+        
 
         let re = /^(\d*)\s*([^\s]*)\s*(\d*)\s*$/;
-        while (match = re.exec(connection)) {
-            data.push(match);
-        }
+        let data = re.exec(connection);
 
-        if (data === null || data.length != 3) {
+        if (data === null || data.length != 4) {
             error("Invalid connection format.");
             return new struct.Game();
         }
@@ -77,10 +75,10 @@ export function parse(content) {
             return new struct.Game();
         }
 
-        let node_a = node_map[data[0]];
-        let node_b = node_map[data[2]];
+        let node_a = node_map[data[1]];
+        let node_b = node_map[data[3]];
 
-        c_funcs[data[1]](node_a, node_b);
+        c_funcs[data[2]](node_a, node_b);
     }
 
 
