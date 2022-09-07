@@ -9,8 +9,8 @@ let selectedNode = null;
 
 const padding = 10;
 
-let view_x = -400.0;
-let view_y = -320.0;
+let view_x = 400.0;
+let view_y = 320.0;
 let zoom = 1.0;
 
 const canvas = document.getElementById("editor");
