@@ -58,8 +58,8 @@ function mouseUp(e) {
 let prevX = 0.0;
 let prevY = 0.0;
 function mouseDown(e) {
-    prevX = e.offsetX * window.devicePixelRatio;
-    prevY = e.offsetY * window.devicePixelRatio;
+    prevX = e.offsetX / window.devicePixelRatio;
+    prevY = e.offsetY / window.devicePixelRatio;
 
     if (e.button == 0) {
         dragging = true;
@@ -72,7 +72,7 @@ function mouseDown(e) {
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-            if (node.inside(e.offsetX + view_x, e.offsetY + view_y, width, height, padding, context)) {
+            if (node.inside(prevX + view_x, prevY + view_y, width, height, padding, context)) {
                 selectedNode = node;
                 break;
             }
@@ -90,13 +90,13 @@ function mouseMove(e) {
     if (dragging) {
 
     } else if (panning) {
-        view_x -= (e.offsetX * window.devicePixelRatio - prevX);
-        view_y -= (e.offsetY * window.devicePixelRatio  - prevY);
+        view_x -= (e.offsetX / window.devicePixelRatio - prevX);
+        view_y -= (e.offsetY / window.devicePixelRatio  - prevY);
         commitChange();
     }
 
-    prevX = e.offsetX * window.devicePixelRatio;
-    prevY = e.offsetY * window.devicePixelRatio;
+    prevX = e.offsetX / window.devicePixelRatio;
+    prevY = e.offsetY / window.devicePixelRatio;
 }
 
 function mouseLeave(e) {
