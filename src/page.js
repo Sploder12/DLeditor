@@ -41,8 +41,8 @@ function commitChange() {
             context.strokeStyle = grd;
 
             context.beginPath();
-            context.moveTo(node.x - view_x, node.y - view_y);
-            context.lineTo(connection.to.x - view_x, connection.to.y - view_y);
+            context.moveTo(node.x - view_x, node.y - view_y - padding);
+            context.lineTo(connection.to.x - view_x, connection.to.y - view_y - padding);
             context.stroke();
         }
     }
