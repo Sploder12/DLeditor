@@ -31,7 +31,7 @@ function commitChange() {
         const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
         let x = node.x - (width / 2) - padding;
-        let y = node.y + (height / 2) - padding;
+        let y = node.y - (height / 2) - padding;
         context.fillStyle = "#808080";
         context.fillRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
         context.fillStyle = "#f0f0f0";
@@ -69,7 +69,7 @@ function mouseDown(e) {
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-            if (node.inside(e.offSet - view_x, e.offsetY - view_y, width, height, padding)) {
+            if (node.inside(e.offsetX - view_x, e.offsetY - view_y, width, height, padding)) {
                 selectedNode = node;
                 break;
             }
