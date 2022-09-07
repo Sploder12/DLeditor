@@ -1,4 +1,14 @@
 
+export const BasicConnection = "->"
+export const BreakingConnection = "\->"
+
+export class Connection {
+    constructor(to, from, type) {
+        this.to = to;
+        this.from = from;
+        this.type = type;
+    }
+}
 
 export class Node {
     constructor(title, description, x, y) {
@@ -13,16 +23,11 @@ export class Node {
         this.x = x;
         this.y = y;
     }
-}
 
-export const BasicConnection = "->"
-export const BreakingConnection = "\->"
-
-export class Connection {
-    constructor(to, from, type) {
-        this.to = to;
-        this.from = from;
-        this.type = type;
+    add_connection(to, type) {
+        if (type === BasicConnection || type === BreakingConnection) {
+            this.connections.push(new Connection(this, to, type));
+        }
     }
 }
 
