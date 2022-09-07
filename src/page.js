@@ -20,10 +20,13 @@ let context = canvas.getContext("2d");
 function commitChange() {
     
     context.font = "30px Arial";
-    context.textAlign = "center";    
+    context.textAlign = "center";
+    context.lineWidth = 2;
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
 
     for (let node of game.nodes) {
-        const metrics = context.measureText(node.title);
+        const metrics = context.measureText(node.id);
         const width = metrics.width;
         const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
@@ -31,8 +34,10 @@ function commitChange() {
         let y = node.y - (height / 2) - padding;
         context.fillStyle = "#808080";
         context.fillRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
+        context.fillStyle = "#f0f0f0";
+        context.strokeRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
         context.fillStyle = "#000000";
-        context.fillText(node.title, node.x - view_x, node.y - view_y);
+        context.fillText(node.id, node.x - view_x, node.y - view_y);
     }
 }
 
@@ -56,6 +61,20 @@ function mouseDown(e) {
     if (e.button == 0) {
         dragging = true;
         panning = false;
+
+        for (let i = game.nodes.length - 1; i >= 0; i -= 1) {
+            let node = game.nodes[i];
+            
+            const metrics = context.measureText(node.id);
+            const width = metrics.width;
+            const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+            if (node.inside(e.clientX, e.clientY, width, height, padding)) {
+                selectedNode = node;
+                break;
+            }
+        }
+
     } else if (e.button == 2) {
         panning = true;
         dragging = false;
@@ -67,8 +86,8 @@ function mouseMove(e) {
     if (dragging) {
 
     } else if (panning) {
-        view_x += (e.clientX - prevX);
-        view_y += (e.clientY - prevY);
+        view_x -= (e.clientX - prevX);
+        view_y -= (e.clientY - prevY);
         commitChange();
     }
 
@@ -88,6 +107,9 @@ function fileNew() {
         } 
         updated = false;
     }
+
+    view_x = -400.0;
+    view_y = -320.0;
 
 
 }
@@ -122,6 +144,8 @@ function fileOpen() {
 
             reader.onload = function() {
                 game = parser.parse(reader.result);
+                view_x = -400.0;
+                view_y = -320.0;
                 updated = false;
                 commitChange();
             }

@@ -19,7 +19,8 @@ export class Connection {
 }
 
 export class Node {
-    constructor(title, description, type, x, y) {
+    constructor(id, title, description, type, x, y) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.type = type;
@@ -31,6 +32,18 @@ export class Node {
     move(x, y) {
         this.x = x;
         this.y = y;
+    }
+
+    inside(x, y, width, height, padding) {
+        const left = this.x - width/2 - padding;
+        const top = this.y - height/2 - padding;
+
+        if (x >= left && y >= top) {
+            if (x <= left + width + padding * 2 && y <= top + width + padding * 2) {
+                return true;
+            }
+        }
+        return false;
     }
 
     add_connection(to, type) {
