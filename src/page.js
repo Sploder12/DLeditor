@@ -152,7 +152,8 @@ function fileNew() {
 
     view_x = -400.0;
     view_y = -320.0;
-
+    selectedNode = null;
+    game = new game();
 
 }
 
@@ -201,14 +202,14 @@ function fileOpen() {
 function fileSave() {
     var saveData = "";
     for (let node of game.nodes) {
-        saveData += node.id + '|' + node.type + '|' + node.title + '|' + node.description + '\n';
+        saveData += node.id + " | " + node.type + " | " + node.title + " | " + node.description + '\n';
     }
 
     saveData += "---\n";
 
     for (let node of game.nodes) {
         for (let connection of node.connections) {
-            saveData += connection.from.id + '  ' + connection.type + ' ' + connection.to.id + '\n';
+            saveData += connection.from.id + ' ' + connection.type + ' ' + connection.to.id + '\n';
         }
     }
 
