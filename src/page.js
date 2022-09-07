@@ -33,7 +33,7 @@ function fileOpen() {
 
     let input = document.createElement("input");
     input.type = "file";
-    input.accept=".dl";
+    input.accept= ".dl";
     input.click();
 
     let files = Array.from(input.files);
@@ -57,7 +57,9 @@ function fileOpen() {
         }
 
         reader.readAsText(file);
-    } 
+    } else {
+        alert("No file.");
+    }
 }
 
 function fileSave() {
