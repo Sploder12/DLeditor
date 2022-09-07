@@ -55,8 +55,9 @@ function mouseUp(e) {
 let prevX = 0.0;
 let prevY = 0.0;
 function mouseDown(e) {
-    prevX = e.offsetX;
-    prevY = e.offsetY;
+    const rect = canvas.getBoundingClientRect();
+    prevX = e.clientX - rect.left;
+    prevY = e.clientY - rect.top;
 
     if (e.button == 0) {
         dragging = true;
@@ -69,7 +70,7 @@ function mouseDown(e) {
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-            if (node.inside(e.offsetX - view_x, e.offsetY - view_y, width, height, padding)) {
+            if (node.inside(e.clientX - rect.left - view_x, e.clientY - rect.top - view_y, width, height, padding)) {
                 selectedNode = node;
                 break;
             }
@@ -83,16 +84,18 @@ function mouseDown(e) {
 
 
 function mouseMove(e) {
+    const rect = canvas.getBoundingClientRect();
+
     if (dragging) {
 
     } else if (panning) {
-        view_x -= (e.offsetX - prevX);
-        view_y -= (e.offsetY - prevY);
+        view_x -= (e.clientX - rect.left - prevX);
+        view_y -= (e.clientY - rect.top - prevY);
         commitChange();
     }
 
-    prevX = e.offsetX;
-    prevY = e.offsetY;
+    prevX = e.clientX - rect.left;
+    prevY = e.clientY - rect.top;
 }
 
 canvas.oncontextmenu = function(e) { return false; };
