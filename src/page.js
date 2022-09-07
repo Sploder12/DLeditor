@@ -5,6 +5,7 @@ let updated = false;
 let fileName = "untitled.dl";
 
 let game = new struct.Game();
+let selectedNode = null;
 
 const padding = 10;
 
@@ -12,11 +13,11 @@ let view_x = -400.0;
 let view_y = -320.0;
 let zoom = 1.0;
 
+const canvas = document.getElementById("editor");
+let context = canvas.getContext("2d");
+
 // redraws the canvas and updates updated
 function commitChange() {
-    const canvas = document.getElementById("editor");
-    let context = canvas.getContext("2d");
-
     
     context.font = "30px Arial";
     context.textAlign = "center";    
@@ -33,6 +34,49 @@ function commitChange() {
         context.fillText(node.title, node.x, node.y);
     }
 }
+
+let dragging = false;
+let panning = false;
+
+function mouseUp(e) {
+    if (e.button == 0) {
+        dragging = false;
+    } else if (e.button == 2) {
+        panning = false;
+    }
+}
+
+let prevX = 0.0;
+let prevY = 0.0;
+function mouseDown(e) {
+    prevX = e.clientX;
+    prevY = e.clientY;
+
+    if (e.button == 0) {
+        dragging = true;
+        panning = false;
+    } else if (e.button == 2) {
+        panning = true;
+        dragging = false;
+    }
+}
+
+
+function mouseMove(e) {
+    if (dragging) {
+
+    } else if (panning) {
+        view_x += (e.clientX - prevX);
+        view_y += (e.clientY - prevY);
+    }
+
+    prevX = e.clientX;
+    prevY = e.clientY;
+}
+
+canvas.addEventListener("mouseup", mouseUp);
+canvas.addEventListener("mousedown", mouseDown);
+canvas.addEventListener("mousemove", mouseMove);
 
 function fileNew() {
     if (updated) {
