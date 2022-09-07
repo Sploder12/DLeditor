@@ -30,7 +30,7 @@ function commitChange() {
     for (let node of game.nodes) {
         for (let connection of node.connections) {
             if (connection.type === struct.BreakingConnection) {
-                context.setLineDash([5, 10]);
+                context.setLineDash([5, 5]);
             } else {
                 context.setLineDash([]);
             }
