@@ -35,7 +35,7 @@ function fileOpen() {
     input.type = "file";
     input.accept= ".dl";
     
-    input.onclick = function() {
+    input.onchange = function() {
         let files = Array.from(input.files);
         if (files.length >= 1) {
             let file = files[0];
@@ -60,7 +60,7 @@ function fileOpen() {
         } else {
             alert("No file.");
         }
-    }
+    };
     input.click();
 }
 
