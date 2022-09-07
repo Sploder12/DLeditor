@@ -51,3 +51,7 @@ function fileOpen() {
 function fileSave() {
     
 }
+
+window.fileNew = fileNew;
+window.fileOpen = fileOpen;
+window.fileSave = fileSave;
