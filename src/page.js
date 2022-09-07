@@ -31,7 +31,7 @@ function commitChange() {
         context.fillStyle = "#808080";
         context.fillRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
         context.fillStyle = "#000000";
-        context.fillText(node.title, node.x, node.y);
+        context.fillText(node.title, node.x - view_x, node.y - view_y);
     }
 }
 
@@ -74,6 +74,7 @@ function mouseMove(e) {
     prevY = e.clientY;
 }
 
+canvas.oncontextmenu = function(e) { return false; };
 canvas.addEventListener("mouseup", mouseUp);
 canvas.addEventListener("mousedown", mouseDown);
 canvas.addEventListener("mousemove", mouseMove);
