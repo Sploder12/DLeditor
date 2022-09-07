@@ -28,7 +28,6 @@ function commitChange() {
 
     // draw connections
     for (let node of game.nodes) {
-        context.fillStyle = "#000000";
         for (let connection of node.connections) {
             if (connection.type === struct.BreakingConnection) {
                 context.setLineDash([5, 10]);
@@ -36,17 +35,18 @@ function commitChange() {
                 context.setLineDash([]);
             }
 
-            let grd = context.createLinearGradient(node.x - view_x, node.y - view_y + padding, connection.to.x - view_x, connection.to.y - view_y - padding);
+            let grd = context.createLinearGradient(node.x - view_x, node.y - view_y, connection.to.x - view_x, connection.to.y - view_y);
             grd.addColorStop(0, "#000000");
             grd.addColorStop(1, "#ffffff");
-            context.fillStyle = grd;
+            context.strokeStyle = grd;
 
             context.beginPath();
-            context.moveTo(node.x - view_x, node.y - view_y + padding);
-            context.lineTo(connection.to.x - view_x, connection.to.y - view_y - padding);
+            context.moveTo(node.x - view_x, node.y - view_y);
+            context.lineTo(connection.to.x - view_x, connection.to.y - view_y);
             context.stroke();
         }
     }
+    context.strokeStyle = "#000000";
 
     // draw boxes
     for (let node of game.nodes) {
@@ -199,7 +199,36 @@ function fileOpen() {
 }
 
 function fileSave() {
-    
+    var saveData = "";
+    for (let node of game.nodes) {
+        saveData += node.id + '|' + node.type + '|' + node.title + '|' + node.description + '\n';
+    }
+
+    saveData += "---\n";
+
+    for (let node of game.nodes) {
+        for (let connection of node.connections) {
+            saveData += connection.from.id + '  ' + connection.type + ' ' + connection.to.id + '\n';
+        }
+    }
+
+    // thanks StackOverflow
+    let file = new Blob([saveData], {type: "text/plain"});
+
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, fileName);
+    else { // Others
+        var a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
 }
 
 document.querySelector("#FileNew").addEventListener("click", fileNew);
