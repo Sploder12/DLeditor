@@ -86,12 +86,14 @@ function mouseDown(e) {
 
 
 function mouseMove(e) {
-   
+    const c_rect = canvas.getBoundingClientRect();
+    const w_rect = window.getBoundingClientRect();
+
     if (dragging) {
 
     } else if (panning) {
-        view_x -= (e.offsetX - prevX);
-        view_y -= (e.offsetY - prevY);
+        view_x -= (e.offsetX - prevX) * c_rect.width / w_rect.width;
+        view_y -= (e.offsetY - prevY) * c_rect.height / w_rect.height;
         commitChange();
     }
 
@@ -99,10 +101,15 @@ function mouseMove(e) {
     prevY = e.offsetY;
 }
 
+function mouseLeave(e) {
+    panning = false;
+}
+
 canvas.oncontextmenu = function(e) { return false; };
 canvas.addEventListener("mouseup", mouseUp);
 canvas.addEventListener("mousedown", mouseDown);
 canvas.addEventListener("mousemove", mouseMove);
+canvas.addEventListener("mouseleave", mouseLeave);
 
 function fileNew() {
     if (updated) {
