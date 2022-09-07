@@ -72,7 +72,7 @@ function mouseDown(e) {
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-            if (node.inside(prevX + view_x, prevY + view_y, width, height, padding, context)) {
+            if (node.inside(prevX + view_x, prevY + view_y, width, height, padding)) {
                 selectedNode = node;
                 break;
             }
