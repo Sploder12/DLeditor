@@ -22,10 +22,6 @@ function fileNew() {
 
 }
 
-function fileLoad() {
-    game = parser.parse(file.result);
-}
-
 function fileOpen() {
    
     if (updated) {
@@ -55,6 +51,10 @@ function fileOpen() {
             alert("Could not read file " + file.name);
             console.log(reader.error);
         };
+
+        reader.onload = function() {
+            game = parser.parse(reader.result);
+        }
 
         reader.readAsText(file);
     } 
