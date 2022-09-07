@@ -36,7 +36,7 @@ export class Node {
 
     inside(x, y, width, height, padding) {
         const left = this.x - width/2 - padding;
-        const top = this.y - height/2 - padding;
+        const top = this.y + height/2 - padding;
 
         if (x >= left && y >= top) {
             if (x <= left + width + padding * 2 && y <= top + width + padding * 2) {

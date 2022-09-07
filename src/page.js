@@ -31,7 +31,7 @@ function commitChange() {
         const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
         let x = node.x - (width / 2) - padding;
-        let y = node.y - (height / 2) - padding;
+        let y = node.y + (height / 2) - padding;
         context.fillStyle = "#808080";
         context.fillRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
         context.fillStyle = "#f0f0f0";
@@ -55,8 +55,8 @@ function mouseUp(e) {
 let prevX = 0.0;
 let prevY = 0.0;
 function mouseDown(e) {
-    prevX = e.clientX;
-    prevY = e.clientY;
+    prevX = e.offsetX;
+    prevY = e.offsetY;
 
     if (e.button == 0) {
         dragging = true;
@@ -69,7 +69,7 @@ function mouseDown(e) {
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-            if (node.inside(e.clientX, e.clientY, width, height, padding)) {
+            if (node.inside(e.offSet - view_x, e.offsetY - view_y, width, height, padding)) {
                 selectedNode = node;
                 break;
             }
@@ -86,13 +86,13 @@ function mouseMove(e) {
     if (dragging) {
 
     } else if (panning) {
-        view_x -= (e.clientX - prevX);
-        view_y -= (e.clientY - prevY);
+        view_x -= (e.offsetX - prevX);
+        view_y -= (e.offsetY - prevY);
         commitChange();
     }
 
-    prevX = e.clientX;
-    prevY = e.clientY;
+    prevX = e.offsetX;
+    prevY = e.offsetY;
 }
 
 canvas.oncontextmenu = function(e) { return false; };
