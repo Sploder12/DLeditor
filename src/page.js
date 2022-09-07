@@ -36,8 +36,8 @@ function commitChange() {
             }
 
             let grd = context.createLinearGradient(node.x - view_x, node.y - view_y, connection.to.x - view_x, connection.to.y - view_y);
-            grd.addColorStop(0, "rgba(0,0,0,0.0)");
-            grd.addColorStop(1, "rgba(255,255,255,1.0)");
+            grd.addColorStop(0, "rgba(0,0,0,1.0)");
+            grd.addColorStop(1, "rgba(255,255,255,0.0)");
             context.strokeStyle = grd;
 
             context.beginPath();
@@ -153,7 +153,8 @@ function fileNew() {
     view_x = -400.0;
     view_y = -320.0;
     selectedNode = null;
-    game = new game();
+    game = new struct.Game();
+    commitChange();
 
 }
 
