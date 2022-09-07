@@ -2,6 +2,14 @@
 export const BasicConnection = "->"
 export const BreakingConnection = "\->"
 
+export const NodeTypes = [
+    "starting",
+    "node",
+    "location",
+    "fight",
+    "run"
+]
+
 export class Connection {
     constructor(to, from, type) {
         this.to = to;
@@ -11,9 +19,10 @@ export class Connection {
 }
 
 export class Node {
-    constructor(title, description, x, y) {
+    constructor(title, description, type, x, y) {
         this.title = title;
         this.description = description;
+        this.type = type;
         this.connections = [];
         this.x = x;
         this.y = y;
