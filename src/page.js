@@ -1,7 +1,7 @@
 import * as struct from "./structure.js"
 import * as parser from "./parser.js"
 
-let updated = true;
+let updated = false;
 let fileName = "untitled.dl";
 
 let game = new struct.Game();
@@ -33,7 +33,7 @@ function fileOpen() {
 
     let input = document.createElement("input");
     input.type = "file";
-    input.accept="text/*,.dl";
+    input.accept=".dl";
     input.click();
 
     let files = Array.from(input.files);

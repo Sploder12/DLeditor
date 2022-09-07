@@ -11,6 +11,7 @@ export function parse(file) {
 
     reader.onload = function() {
         done = true;
+        console.log(reader.result)
     };
     
     reader.onerror = function() {
