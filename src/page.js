@@ -27,15 +27,18 @@ function commitChange() {
 
     for (let node of game.nodes) {
         const metrics = context.measureText(node.id);
-        const width = metrics.width;
-        const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+        let width = metrics.width;
+        let height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+        width = width + padding * 2;
+        height = height + padding * 2;
 
         let x = node.x - (width / 2) - padding;
         let y = node.y - (height / 2) - padding;
         context.fillStyle = "#808080";
-        context.fillRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
+        context.fillRect(x - view_x, y - view_y, width, height);
         context.fillStyle = "#f0f0f0";
-        context.strokeRect(x - view_x, y - view_y, width + padding * 2, height + padding * 2);
+        context.strokeRect(x - view_x, y - view_y, width, height);
         context.fillStyle = "#000000";
         context.fillText(node.id, node.x - view_x, node.y - view_y);
     }
