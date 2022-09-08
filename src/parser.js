@@ -55,7 +55,7 @@ export function parse(content) {
             return new struct.Game();
         }
         
-        node_map[id] = new struct.Node(id, name, desc, type, 0.0, node_map.length * 60.0);
+        node_map[id] = new struct.Node(id, name, desc, type, 0.0, Object.keys(node_map).length * 60.0);
     }
     
     let connection_data = connections.split('\n')

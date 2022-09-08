@@ -151,7 +151,19 @@ function commitChange() {
 
         let x = node.x - (width / 2);
         let y = node.y - (height / 2) - padding;
-        context.fillStyle = "#808080";
+        
+        if (node.type === "starting") {
+            context.fillStyle = "#80e080";
+        } else if(node.type === "location") { 
+            context.fillStyle = "#b0b080";
+        } else if(node.type === "fight") { 
+            context.fillStyle = "#e08080";
+        } else if(node.type === "run") { 
+            context.fillStyle = "#8080b0";
+        } else {
+            context.fillStyle = "#808080";
+        }
+
         context.fillRect(x - view_x, y - view_y, width, height);
         context.fillStyle = "#f0f0f0";
         context.strokeRect(x - view_x, y - view_y, width, height);
