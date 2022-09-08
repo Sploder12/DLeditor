@@ -67,8 +67,8 @@ export class instance {
         self.updated = true;
         let node = new struct.Node(self.game.nodes.length + "", "", "", "node", self.view_x + 320, self.view_y + 240)
         self.game.add_node(node);
-        selectNode(node);
-        commitChange();
+        self.selectNode(node);
+        graphic.draw(self);
     }
 
     deleteNode() {
@@ -85,7 +85,7 @@ export class instance {
             for (let node of self.game.nodes) {
                 node.remove_connection(self.selectedNode);
             }
-            clearNode();
+            self.clearNode();
             self.updated = true;
             graphic.draw(self);
         }
@@ -95,12 +95,12 @@ export class instance {
         for (let i = self.game.nodes.length - 1; i >= 0; --i) {
             let node = self.game.nodes[i];
             
-            const metrics = context.measureText(node.id);
+            const metrics = graphic.context.measureText(node.id);
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
             if (node.inside(x + self.view_x, y + self.view_y, width, height, graphic.PADDING)) {
-                selectNode(node);
+                self.selectNode(node);
                 if (self.selectedNode !== null && !self.connecting) {
                     self.selectedNode.move(x + self.view_x, y + self.view_y);
                     graphic.draw(self);
