@@ -200,6 +200,7 @@ function deleteNode() {
 
 
 function addBasicConnection() {
+    clearNode();
     connecting = true;
     node_a = null;
     connectingType = struct.BasicConnection;
@@ -207,6 +208,7 @@ function addBasicConnection() {
 }
 
 function addBreakingConnection() {
+    clearNode();
     connecting = true;
     node_a = null;
     connectingType = struct.BreakingConnection;
@@ -214,6 +216,7 @@ function addBreakingConnection() {
 }
 
 function removeConnection() {
+    clearNode();
     connecting = true;
     node_a = null;
     connectingType = "";
@@ -392,4 +395,4 @@ document.getElementById("AddNode").addEventListener("click", addNode);
 document.getElementById("DeleteNode").addEventListener("click", deleteNode);
 document.getElementById("AddConnection->").addEventListener("click", addBasicConnection);
 document.getElementById("AddConnection\\->").addEventListener("click", addBreakingConnection);
-document.getElementById("removeConnection").addEventListener("click", removeConnection);
+document.getElementById("RemoveConnection").addEventListener("click", removeConnection);
