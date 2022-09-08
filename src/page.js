@@ -113,12 +113,12 @@ function mouseMove(e) {
     const realX = e.offsetX * (640.0 / rect.width);
     const realY = e.offsetY * (480.0 / rect.height);
 
-    if (dragging && selectedNode !== null) {
-        active.selectedNode.move(realX + active.view_x, realY + active.view_y);
+    if (dragging && active.selectedNode !== null) {
+        active.selectedNode.move(realX + active.viewX, realY + active.viewY);
         graphic.draw(active);
     } else if (panning) {
-        active.view_x -= (realX - prevX);
-        active.view_y -= (realY - prevY);
+        active.viewX -= (realX - prevX);
+        active.viewY -= (realY - prevY);
         graphic.draw(active);
     }
 
@@ -144,8 +144,8 @@ function fileNew() {
         active.updated = false;
     }
 
-    view_x = -400.0;
-    view_y = -320.0;
+    viewX = -400.0;
+    viewY = -320.0;
     active = new editor.instance();
     graphic.draw(active)
 }
@@ -168,7 +168,7 @@ function fileOpen() {
         if (files.length >= 1) {
             let file = files[0];
 
-            fileName = file.name;
+            active.fileName = file.name;
 
             // load .dl
             const reader = new FileReader();
@@ -180,8 +180,8 @@ function fileOpen() {
 
             reader.onload = function() {
                 active.game = parser.parse(reader.result);
-                active.view_x = -400.0;
-                active.view_y = -320.0;
+                active.viewX = -400.0;
+                active.viewY = -320.0;
                 active.updated = false;
                 graphic.draw(active);
             }

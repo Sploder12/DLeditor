@@ -65,7 +65,7 @@ export class instance {
     newNode() {
         this.connecting = false;
         this.updated = true;
-        let node = new struct.Node(this.game.nodes.length + "", "", "", "node", this.view_x + 320, this.view_y + 240)
+        let node = new struct.Node(this.game.nodes.length + "", "", "", "node", this.viewX + 320, this.viewY + 240)
         this.game.add_node(node);
         this.selectNode(node);
         graphic.draw(this);
@@ -99,10 +99,10 @@ export class instance {
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-            if (node.inside(x + this.view_x, y + this.view_y, width, height, graphic.PADDING)) {
+            if (node.inside(x + this.viewX, y + this.viewY, width, height, graphic.PADDING)) {
                 this.selectNode(node);
                 if (this.selectedNode !== null && !this.connecting) {
-                    this.selectedNode.move(x + this.view_x, y + this.view_y);
+                    this.selectedNode.move(x + this.viewX, y + this.viewY);
                     graphic.draw(this);
                 }
                 return;

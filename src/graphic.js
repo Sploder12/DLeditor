@@ -22,14 +22,14 @@ export function draw(instance) {
                 context.setLineDash([]);
             }
 
-            let grd = context.createLinearGradient(node.x - instance.view_x, node.y - instance.view_y - PADDING, connection.to.x - instance.view_x, connection.to.y - instance.view_y - PADDING);
+            let grd = context.createLinearGradient(node.x - instance.viewX, node.y - instance.viewY - PADDING, connection.to.x - instance.viewX, connection.to.y - instance.viewY - PADDING);
             grd.addColorStop(0, "rgba(0,0,0,1.0)");
             grd.addColorStop(1, "rgba(255,255,255,0.0)");
             context.strokeStyle = grd;
 
             context.beginPath();
-            context.moveTo(node.x - instance.view_x, node.y - instance.view_y - PADDING);
-            context.lineTo(connection.to.x - instance.view_x, connection.to.y - instance.view_y - PADDING);
+            context.moveTo(node.x - instance.viewX, node.y - instance.viewY - PADDING);
+            context.lineTo(connection.to.x - instance.viewX, connection.to.y - instance.viewY - PADDING);
             context.stroke();
         }
     }
@@ -60,10 +60,10 @@ export function draw(instance) {
             context.fillStyle = "#808080";
         }
 
-        context.fillRect(x - instance.view_x, y - instance.view_y, width, height);
+        context.fillRect(x - instance.viewX, y - instance.viewY, width, height);
         context.fillStyle = "#f0f0f0";
-        context.strokeRect(x - instance.view_x, y - instance.view_y, width, height);
+        context.strokeRect(x - instance.viewX, y - instance.viewY, width, height);
         context.fillStyle = "#000000";
-        context.fillText(node.id, node.x - instance.view_x, node.y - instance.view_y);
+        context.fillText(node.id, node.x - instance.viewX, node.y - instance.viewY);
     }
 }
