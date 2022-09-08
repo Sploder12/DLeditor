@@ -78,6 +78,7 @@ canvas {
     width: auto;
     background-color: darkgrey;
     flex: 2;
+    text-align: center;
 }
 
 .toolbar {
@@ -85,4 +86,16 @@ canvas {
     width: auto;
     background-color: darkgrey;
     flex: 2;
+}
+
+input {
+    width: 85%;
+    height: 35px;
+    text-align: center;
+}
+
+select {
+    width: 85%;
+    height: 35px;
+    text-align: center;
 }

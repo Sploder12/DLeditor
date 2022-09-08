@@ -19,11 +19,41 @@
         
         <div class="container">
             <div class="toolbar">
-                
+                <br>
+                <h2>Tool Bar</h2>
+                <br>
             </div>
+
             <canvas id="editor" width="640" height="480" style="border:1px solid #000000; float:center;"></canvas>
+
             <div class="nodeEditor">
-                
+                <br>
+                <h2>Node Properties</h2>
+                <br>
+                <label>ID</label>
+                <br>
+                <input id="editorNodeID" disabled="true" placeholder="Node Identifier"></input>
+                <br>
+                <br>
+                <label>Title</label>
+                <br>
+                <input id="editorNodeTitle" disabled="true" placeholder="Node Title"></input>
+                <br>
+                <br>
+                <label>Description</label>
+                <br>
+                <input id="editorNodeDesc" disabled="true" placeholder="Node Description"></input>
+                <br>
+                <br>
+                <label>Type</label>
+                <br>
+                <select id="editorNodeType" disabled="true">
+                    <option value="node">Node</option>
+                    <option value="starting">Starting</option>
+                    <option value="location">Location</option>
+                    <option value="fight">Fight</option>
+                    <option value="run">Run</option>
+                </select>
             </div>
         </div>
     </body>

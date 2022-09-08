@@ -16,6 +16,29 @@ let zoom = 1.0;
 const canvas = document.getElementById("editor");
 let context = canvas.getContext("2d");
 
+const idInput = document.getElementById("editorNodeID");
+const titleInput = document.getElementById("editorNodeTitle");
+const descInput = document.getElementById("editorNodeDesc");
+const nodeType = document.getElementById("editorNodeType");
+
+function selectNode(node) {
+    selectedNode = node;
+
+    idInput.value = node.id;
+    titleInput.value = node.title;
+    descInput.value = node.description;
+    nodeType.value = node.type;
+}
+
+function clearNode() {
+    selectedNode = null;
+
+    idInput.reset();
+    titleInput.reset();
+    descInput.reset();
+    nodeType.reset();
+}
+
 // redraws the canvas and updates updated
 function commitChange() {
     
@@ -87,7 +110,7 @@ function mouseDown(e) {
     prevY = e.offsetY / (rect.height / 480.0);
 
     if (e.button == 0) {
-        selectedNode = null;
+        clearNode();
 
         dragging = true;
         panning = false;
@@ -100,9 +123,8 @@ function mouseDown(e) {
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
             if (node.inside(prevX + view_x, prevY + view_y, width, height, padding)) {
-                selectedNode = node;
-                selectedNode.x = prevX + view_x;
-                selectedNode.y = prevY + view_y;
+                selectNode(node);
+                selectedNode.move(prevX + view_x, prevY + view_y);
                 commitChange();
                 break;
             }
@@ -121,8 +143,7 @@ function mouseMove(e) {
     const realY = e.offsetY / (rect.height / 480.0);
 
     if (dragging && selectedNode !== null) {
-        selectedNode.x = realX + view_x;
-        selectedNode.y = realY + view_y;
+        selectedNode.move(realX + view_x, realY + view_y);
         commitChange();
     } else if (panning) {
         view_x -= (realX - prevX);
@@ -154,7 +175,7 @@ function fileNew() {
 
     view_x = -400.0;
     view_y = -320.0;
-    selectedNode = null;
+    clearNode();
     game = new struct.Game();
     commitChange();
 
