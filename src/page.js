@@ -28,15 +28,20 @@ function selectNode(node) {
     titleInput.value = node.title;
     descInput.value = node.description;
     nodeType.value = node.type;
+
+    idInput.disabled = false;
+    titleInput.disabled = false;
+    descInput.disabled = false;
+    nodeType.disabled = false;
 }
 
 function clearNode() {
     selectedNode = null;
 
-    idInput.reset();
-    titleInput.reset();
-    descInput.reset();
-    nodeType.reset();
+    idInput.disabled = true;
+    titleInput.disabled = true;
+    descInput.disabled = true;
+    nodeType.disabled = true;
 }
 
 // redraws the canvas and updates updated
