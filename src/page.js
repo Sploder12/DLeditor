@@ -42,6 +42,49 @@ function clearNode() {
     titleInput.disabled = true;
     descInput.disabled = true;
     nodeType.disabled = true;
+
+    idInput.value = "";
+    titleInput.value = "";
+    descInput.value = "";
+    nodeType.value = "";
+}
+
+idInput.onchange = function() {
+    if (selectedNode !== null) {
+        if (idInput.value !== selectedNode.id) {
+            selectedNode.id = idInput.value;
+            updated = true;
+            commitChange();
+        }
+    }
+}
+
+titleInput.onchange = function() {
+    if (selectedNode !== null) {
+        if (titleInput.value !== selectedNode.title) {
+            selectedNode.title = titleInput.value;
+            updated = true;
+        }
+    }
+}
+
+descInput.onchange = function() {
+    if (selectedNode !== null) {
+        if (descInput.value !== selectedNode.description) {
+            selectedNode.description = descInput.value;
+            updated = true;
+        }
+    }
+}
+
+nodeType.onchange = function() {
+    if (selectedNode !== null) {
+        if (nodeType.value !== selectedNode.title) {
+            selectedNode.type = nodeType.value;
+            updated = true;
+            commitChange();
+        }
+    }
 }
 
 // redraws the canvas and updates updated

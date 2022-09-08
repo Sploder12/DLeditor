@@ -86,6 +86,7 @@ canvas {
     width: auto;
     background-color: darkgrey;
     flex: 2;
+    text-align: center;
 }
 
 input {
