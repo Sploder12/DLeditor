@@ -137,6 +137,7 @@ function commitChange() {
             context.stroke();
         }
     }
+    context.setLineDash([]);
     context.strokeStyle = "#000000";
 
     // draw boxes

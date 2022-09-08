@@ -49,6 +49,13 @@ export class Node {
     }
 
     add_connection(to, type) {
+        for (let connect of this.connections) {
+            if (connect.to === to) {
+                connect.type = type;
+                return;
+            }
+        }
+
         if (type === BasicConnection || type === BreakingConnection) {
             this.connections.push(new Connection(to, this, type));
         }
@@ -56,7 +63,7 @@ export class Node {
 
     remove_connection(to) {
         for (let i = 0; i < this.connections.length; ++i) {
-            if (connections[i].to === to) {
+            if (this.connections[i].to === to) {
                 this.connections.splice(i, 1);
                 return true;
             }
