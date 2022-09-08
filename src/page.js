@@ -9,8 +9,8 @@ let selectedNode = null;
 
 const padding = 10;
 
-let view_x = -400.0;
-let view_y = -320.0;
+let view_x = -320.0;
+let view_y = -240.0;
 let zoom = 1.0;
 
 const canvas = document.getElementById("editor");
@@ -36,6 +36,7 @@ function selectNode(node) {
 }
 
 function clearNode() {
+    
     selectedNode = null;
 
     idInput.disabled = true;
@@ -101,7 +102,7 @@ function commitChange() {
     for (let node of game.nodes) {
         for (let connection of node.connections) {
             if (connection.type === struct.BreakingConnection) {
-                context.setLineDash([5, 10]);
+                context.setLineDash([5, 5]);
             } else {
                 context.setLineDash([]);
             }
@@ -141,6 +142,34 @@ function commitChange() {
 
 let dragging = false;
 let panning = false;
+
+function addNode() {
+    updated = true;
+    node = new struct.Node(game.nodes.length+"", "", "", "node", view_x + 320, view_y + 240)
+    game.add_node(node);
+    selectNode(node);
+}
+
+function deleteNode() {
+    if (selectedNode !== null) {
+        for (var i = 0; i < game.nodes.length; ++i) {
+            if (game.nodes[i] === selectedNode) {
+                game.nodes.splice(i, 1);
+                break;
+            }
+        }
+        clearNode();
+        updated = true;
+    }
+}
+
+function addBasicConnection() {
+
+}
+
+function addBreakingConnection() {
+    
+}
 
 function mouseUp(e) {
     if (e.button == 0) {
@@ -307,3 +336,8 @@ function fileSave() {
 document.querySelector("#FileNew").addEventListener("click", fileNew);
 document.querySelector("#FileOpen").addEventListener("click", fileOpen);
 document.querySelector("#FileSave").addEventListener("click", fileSave);
+
+document.querySelector("#AddNode").addEventListener("click", addNode);
+document.querySelector("#DeleteNode").addEventListener("click", deleteNode);
+document.querySelector("#AddConnection->").addEventListener("click", addBasicConnection);
+document.querySelector("#AddConnection\\->").addEventListener("click", addBreakingConnection);
