@@ -94,10 +94,12 @@ function mouseDown(e) {
     prevY = e.offsetY * (480.0 / rect.height);
 
     if (e.button == 0) {
-        active.clearNode();
+        if (!active.connecting) {
+            active.clearNode();
 
-        dragging = true;
-        panning = false;
+            dragging = true;
+            panning = false;
+        }
 
         active.select(prevX, prevY);
 
