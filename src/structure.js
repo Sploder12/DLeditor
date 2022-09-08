@@ -53,6 +53,16 @@ export class Node {
             this.connections.push(new Connection(to, this, type));
         }
     }
+
+    remove_connection(to) {
+        for (let i = 0; i < this.connections.length; ++i) {
+            if (connections[i].to === to) {
+                this.connections.splice(i, 1);
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 export class Game {

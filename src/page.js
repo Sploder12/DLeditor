@@ -29,10 +29,7 @@ function selectNode(node) {
     if (connecting) {
         if (node_a !== null) {
             if (connectingType === "") {
-                let pos = node_a.connections.indexOf(node);
-                if (pos !== -1) {
-                    node_a.connections.splice(pos, 1);
-                }
+                node_a.remove_connection(node);
             } else {
                 node_a.add_connection(node, connectingType);
             }
@@ -187,10 +184,7 @@ function deleteNode() {
         }
 
         for (let node of game.nodes) {
-            let pos = node.connections.indexOf(selectedNode);
-            if (pos !== -1) {
-                node.connections.splice(pos, 1);
-            }
+            node.remove_connection(selectedNode);
         }
         clearNode();
         updated = true;
@@ -253,7 +247,7 @@ function mouseDown(e) {
 
             if (node.inside(prevX + view_x, prevY + view_y, width, height, padding)) {
                 selectNode(node);
-                if (!connecting) {
+                if (selectedNode !== null && !connecting) {
                     selectedNode.move(prevX + view_x, prevY + view_y);
                     commitChange();
                 }
