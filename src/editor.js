@@ -8,34 +8,34 @@ export const nodeType = document.getElementById("editorNodeType");
 
 export class instance {
     constructor() {
-        self.game = new struct.Game();
-        self.updated = false;
-        self.fileName = "untitled.dl";
-        self.selectedNode = null;
-        self.viewX = -320.0;
-        self.viewY = -240.0;
-        self.zoom = 1.0;
+        this.game = new struct.Game();
+        this.updated = false;
+        this.fileName = "untitled.dl";
+        this.selectedNode = null;
+        this.viewX = -320.0;
+        this.viewY = -240.0;
+        this.zoom = 1.0;
 
-        self.connecting = false;
-        self.connectingType = "";
+        this.connecting = false;
+        this.connectingType = "";
     }
 
     selectNode(node) {
-        if (self.connecting && self.selectedNode !== null) {
-            if (self.connectingType === "") {
-                self.selectedNode.remove_connection(node);
+        if (this.connecting && this.selectedNode !== null) {
+            if (this.connectingType === "") {
+                this.selectedNode.remove_connection(node);
             } else {
-                self.selectedNode.add_connection(node, self.connectingType);
+                this.selectedNode.add_connection(node, this.connectingType);
             }
-            self.connecting = false;
-            self.updated = true;
-            self.selectedNode = null;
-            graphic.draw(self);
+            this.connecting = false;
+            this.updated = true;
+            this.selectedNode = null;
+            graphic.draw(this);
             return;
         }
 
-        self.selectedNode = node;
-        if (!self.connecting) {
+        this.selectedNode = node;
+        if (!this.connecting) {
             idInput.value = node.id;
             titleInput.value = node.title;
             descInput.value = node.description;
@@ -49,7 +49,7 @@ export class instance {
     }
 
     clearNode() {
-        self.selectedNode = null;
+        this.selectedNode = null;
 
         idInput.disabled = true;
         titleInput.disabled = true;
@@ -63,47 +63,47 @@ export class instance {
     }
 
     newNode() {
-        self.connecting = false;
-        self.updated = true;
-        let node = new struct.Node(self.game.nodes.length + "", "", "", "node", self.view_x + 320, self.view_y + 240)
-        self.game.add_node(node);
-        self.selectNode(node);
-        graphic.draw(self);
+        this.connecting = false;
+        this.updated = true;
+        let node = new struct.Node(this.game.nodes.length + "", "", "", "node", this.view_x + 320, this.view_y + 240)
+        this.game.add_node(node);
+        this.selectNode(node);
+        graphic.draw(this);
     }
 
     deleteNode() {
-        self.connecting = false;
+        this.connecting = false;
 
-        if (self.selectedNode !== null) {
-            for (var i = 0; i < self.game.nodes.length; ++i) {
-                if (self.game.nodes[i] === self.selectedNode) {
-                    self.game.nodes.splice(i, 1);
+        if (this.selectedNode !== null) {
+            for (var i = 0; i < this.game.nodes.length; ++i) {
+                if (this.game.nodes[i] === this.selectedNode) {
+                    this.game.nodes.splice(i, 1);
                     break;
                 }
             }
     
-            for (let node of self.game.nodes) {
-                node.remove_connection(self.selectedNode);
+            for (let node of this.game.nodes) {
+                node.remove_connection(this.selectedNode);
             }
-            self.clearNode();
-            self.updated = true;
-            graphic.draw(self);
+            this.clearNode();
+            this.updated = true;
+            graphic.draw(this);
         }
     }
 
     select(x, y) {
-        for (let i = self.game.nodes.length - 1; i >= 0; --i) {
-            let node = self.game.nodes[i];
+        for (let i = this.game.nodes.length - 1; i >= 0; --i) {
+            let node = this.game.nodes[i];
             
             const metrics = graphic.context.measureText(node.id);
             const width = metrics.width;
             const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-            if (node.inside(x + self.view_x, y + self.view_y, width, height, graphic.PADDING)) {
-                self.selectNode(node);
-                if (self.selectedNode !== null && !self.connecting) {
-                    self.selectedNode.move(x + self.view_x, y + self.view_y);
-                    graphic.draw(self);
+            if (node.inside(x + this.view_x, y + this.view_y, width, height, graphic.PADDING)) {
+                this.selectNode(node);
+                if (this.selectedNode !== null && !this.connecting) {
+                    this.selectedNode.move(x + this.view_x, y + this.view_y);
+                    graphic.draw(this);
                 }
                 return;
             }
