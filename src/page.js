@@ -145,7 +145,7 @@ let panning = false;
 
 function addNode() {
     updated = true;
-    node = new struct.Node(game.nodes.length+"", "", "", "node", view_x + 320, view_y + 240)
+    let node = new struct.Node(game.nodes.length+"", "", "", "node", view_x + 320, view_y + 240)
     game.add_node(node);
     selectNode(node);
 }
@@ -168,7 +168,7 @@ function addBasicConnection() {
 }
 
 function addBreakingConnection() {
-    
+
 }
 
 function mouseUp(e) {
@@ -337,7 +337,7 @@ document.querySelector("#FileNew").addEventListener("click", fileNew);
 document.querySelector("#FileOpen").addEventListener("click", fileOpen);
 document.querySelector("#FileSave").addEventListener("click", fileSave);
 
-document.querySelector("#AddNode").addEventListener("click", addNode);
-document.querySelector("#DeleteNode").addEventListener("click", deleteNode);
-document.querySelector("#AddConnection->").addEventListener("click", addBasicConnection);
-document.querySelector("#AddConnection\\->").addEventListener("click", addBreakingConnection);
+document.getElementById("AddNode").addEventListener("click", addNode);
+document.getElementById("DeleteNode").addEventListener("click", deleteNode);
+document.getElementById("AddConnection->").addEventListener("click", addBasicConnection);
+document.getElementById("AddConnection\\->").addEventListener("click", addBreakingConnection);
