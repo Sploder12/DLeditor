@@ -21,18 +21,40 @@ const titleInput = document.getElementById("editorNodeTitle");
 const descInput = document.getElementById("editorNodeDesc");
 const nodeType = document.getElementById("editorNodeType");
 
+let connecting = false;
+let connectingType = "";
+let node_a = null;
+
 function selectNode(node) {
-    selectedNode = node;
+    if (connecting) {
+        if (node_a !== null) {
+            if (connectingType === "") {
+                let pos = node_a.connections.indexOf(node);
+                if (pos !== -1) {
+                    node_a.connections.splice(pos, 1);
+                }
+            } else {
+                node_a.add_connection(node, connectingType);
+            }
+            connecting = false;
+            updated = true;
+            commitChange();
+        } else {
+            node_a = node;
+        }
+    } else {
+        selectedNode = node;
 
-    idInput.value = node.id;
-    titleInput.value = node.title;
-    descInput.value = node.description;
-    nodeType.value = node.type;
+        idInput.value = node.id;
+        titleInput.value = node.title;
+        descInput.value = node.description;
+        nodeType.value = node.type;
 
-    idInput.disabled = false;
-    titleInput.disabled = false;
-    descInput.disabled = false;
-    nodeType.disabled = false;
+        idInput.disabled = false;
+        titleInput.disabled = false;
+        descInput.disabled = false;
+        nodeType.disabled = false;
+    }
 }
 
 function clearNode() {
@@ -144,13 +166,18 @@ let dragging = false;
 let panning = false;
 
 function addNode() {
+    connecting = false;
+
     updated = true;
     let node = new struct.Node(game.nodes.length+"", "", "", "node", view_x + 320, view_y + 240)
     game.add_node(node);
     selectNode(node);
+    commitChange();
 }
 
 function deleteNode() {
+    connecting = false;
+
     if (selectedNode !== null) {
         for (var i = 0; i < game.nodes.length; ++i) {
             if (game.nodes[i] === selectedNode) {
@@ -158,17 +185,39 @@ function deleteNode() {
                 break;
             }
         }
+
+        for (let node of game.nodes) {
+            let pos = node.connections.indexOf(selectedNode);
+            if (pos !== -1) {
+                node.connections.splice(pos, 1);
+            }
+        }
         clearNode();
         updated = true;
+        commitChange();
     }
 }
 
-function addBasicConnection() {
 
+function addBasicConnection() {
+    connecting = true;
+    node_a = null;
+    connectingType = struct.BasicConnection;
+    commitChange();
 }
 
 function addBreakingConnection() {
+    connecting = true;
+    node_a = null;
+    connectingType = struct.BreakingConnection;
+    commitChange();
+}
 
+function removeConnection() {
+    connecting = true;
+    node_a = null;
+    connectingType = "";
+    commitChange();
 }
 
 function mouseUp(e) {
@@ -201,8 +250,10 @@ function mouseDown(e) {
 
             if (node.inside(prevX + view_x, prevY + view_y, width, height, padding)) {
                 selectNode(node);
-                selectedNode.move(prevX + view_x, prevY + view_y);
-                commitChange();
+                if (!connecting) {
+                    selectedNode.move(prevX + view_x, prevY + view_y);
+                    commitChange();
+                }
                 break;
             }
         }
@@ -341,3 +392,4 @@ document.getElementById("AddNode").addEventListener("click", addNode);
 document.getElementById("DeleteNode").addEventListener("click", deleteNode);
 document.getElementById("AddConnection->").addEventListener("click", addBasicConnection);
 document.getElementById("AddConnection\\->").addEventListener("click", addBreakingConnection);
+document.getElementById("removeConnection").addEventListener("click", removeConnection);
